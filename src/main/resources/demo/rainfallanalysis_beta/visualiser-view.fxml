@@ -17,12 +17,12 @@
    <ToolBar prefHeight="40.0" prefWidth="200.0">
      <items>
          <Button onAction="#onUploadButtonClick" text="Upload rainfall CSV file" />
-         <ChoiceBox prefWidth="150.0" />
-         <Button mnemonicParsing="false" text="Calculate" />
+         <ChoiceBox fx:id="fileList" onAction="#onSelect" prefWidth="150.0" />
+         <Button onAction="#onCalculateButtonClick" mnemonicParsing="false" text="Calculate" />
      </items>
    </ToolBar>
 
-   <BarChart prefHeight="564.0" prefWidth="883.0" title="Rainfall Analysis">
+   <BarChart fx:id="barChart" prefHeight="564.0" prefWidth="883.0" title="Rainfall Analysis">
      <xAxis>
        <CategoryAxis side="BOTTOM" />
      </xAxis>
