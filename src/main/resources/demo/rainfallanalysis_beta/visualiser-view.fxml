@@ -10,19 +10,18 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="674.0" prefWidth="927.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="demo.rainfallanalysis_beta.VisualiserController">
+<VBox fx:id="vbox0" alignment="CENTER" prefHeight="674.0" prefWidth="927.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="demo.rainfallanalysis_beta.VisualiserController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
    <ToolBar prefHeight="40.0" prefWidth="200.0">
      <items>
-          <Button onAction="#onHelloButtonClick" text="Hello!" />
+         <Button onAction="#onUploadButtonClick" text="Upload rainfall CSV file" />
          <ChoiceBox prefWidth="150.0" />
-         <Button mnemonicParsing="false" text="Button" />
+         <Button mnemonicParsing="false" text="Calculate" />
      </items>
    </ToolBar>
 
-    <Label fx:id="welcomeText" />
    <BarChart prefHeight="564.0" prefWidth="883.0" title="Rainfall Analysis">
      <xAxis>
        <CategoryAxis side="BOTTOM" />
