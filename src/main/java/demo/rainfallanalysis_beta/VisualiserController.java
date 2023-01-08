@@ -18,7 +18,6 @@ import java.io.File;
 
 public class VisualiserController {
 
-
     @FXML
     private ChoiceBox fileList;
 
@@ -31,7 +30,7 @@ public class VisualiserController {
     @FXML
     private NumberAxis barChartYAxis;
 
-
+    //indicate current file
     private String option;
 
     //use integer to flag calculated file
@@ -60,13 +59,11 @@ public class VisualiserController {
 
     @FXML
     protected void onUploadButtonClick() {
-
         //open file choosing dialog to choose a CSV file
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(null);
-
         //check file variable
         if (file != null) {
             if (file.length() == 0) {
@@ -83,20 +80,21 @@ public class VisualiserController {
                 }
             }
         }
-
-        System.out.println("File size: " + FileHandleHelper.getSize());
-
+        //diagnose
+        //System.out.println("File size: " + FileHandleHelper.getSize());
     }
+
     @FXML
     protected void onSelect() {
-
+        //update select option
         option = fileList.getSelectionModel().getSelectedItem().toString();
-        System.out.println("file list index: " + fileList.getSelectionModel().getSelectedIndex());
-        System.out.println("file list selected option: " + fileList.getSelectionModel().getSelectedItem());
-
         //flag the current file
         flag = flag - 1;
+        //diagnose
+        //System.out.println("file list index: " + fileList.getSelectionModel().getSelectedIndex());
+        //System.out.println("file list selected option: " + fileList.getSelectionModel().getSelectedItem());
     }
+
     @FXML
     protected void onCalculateButtonClick() {
 
@@ -104,73 +102,39 @@ public class VisualiserController {
         if (option == null) {
             //no file is selected
             showErrorMessage("Please select a file!");
-            return;
+
         } else {
             if (fileList.getSelectionModel().getSelectedItem().equals(option) && flag == 0) {
                 showErrorMessage("Already calculated!");
-                return;
+
             } else {
                 //flag the current file
                 flag = flag + 1;
                 try {
                     //open csv file
-                    if (!RainfallAnalyser.analyseData(FileHandleHelper.getNewFile(option))) {
-                        showErrorMessage("File is corrupt!");
-                        return;
-                    } else {
-                        //collect data and draw bar chart
-                        //to do
-                        System.out.println("A correct file is open!");
+                    String condition = RainfallAnalyser.analyseData(FileHandleHelper.getNewFile(option));
+                    switch (condition) {
+                        case "corrupt" -> showErrorMessage("File is corrupt!");
+                        case "unsupported" -> showErrorMessage("Unsupported file format!");
+                        case "fail" -> showErrorMessage("Unknown error!");
+                        default -> {
+                            //collect data and draw bar chart
+                            barChartXAxis.setLabel("Year");
+                            barChartYAxis.setLabel("Units = mm");
+                            //fill in categories
+                            barChartXAxis.setCategories(FXCollections.observableArrayList(RainfallAnalyser.getAxisYears(option)));
+                            //replacing bar chart data
+                            barChart.setData(FXCollections.observableArrayList(RainfallAnalyser.organizeStaticalData(option)));
+                            barChart.setTitle(option.trim().split("\\.")[0] + " Rainfall Analysis");
+                            barChart.setBarGap(0.5);
+                            //diagnose
+                            //System.out.println("A correct file is open!");
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
-                final String austria = "Austria";
-                final String brazil = "Brazil";
-                final String france = "France";
-                final String italy = "Italy";
-                final String usa = "USA";
-
-                barChartXAxis.setLabel("Country");
-                barChartYAxis.setLabel("Value");
-
-                XYChart.Series series1 = new XYChart.Series();
-                series1.setName("2003");
-                series1.getData().add(new XYChart.Data(austria, 25601.34));
-                series1.getData().add(new XYChart.Data(brazil, 20148.82));
-                series1.getData().add(new XYChart.Data(france, 10000));
-                series1.getData().add(new XYChart.Data(italy, 35407.15));
-                series1.getData().add(new XYChart.Data(usa, 12000));
-
-                XYChart.Series series2 = new XYChart.Series();
-                series2.setName("2004");
-                series2.getData().add(new XYChart.Data(austria, 57401.85));
-                series2.getData().add(new XYChart.Data(brazil, 41941.19));
-                series2.getData().add(new XYChart.Data(france, 45263.37));
-                series2.getData().add(new XYChart.Data(italy, 117320.16));
-                series2.getData().add(new XYChart.Data(usa, 14845.27));
-
-                XYChart.Series series3 = new XYChart.Series();
-                series3.setName("2005");
-                series3.getData().add(new XYChart.Data(austria, 45000.65));
-                series3.getData().add(new XYChart.Data(brazil, 44835.76));
-                series3.getData().add(new XYChart.Data(france, 18722.18));
-                series3.getData().add(new XYChart.Data(italy, 17557.31));
-                series3.getData().add(new XYChart.Data(usa, 92633.68));
-
-
-                //replacing bar chart values
-                barChart.setData(FXCollections.observableArrayList(series1, series2, series3));
-                barChart.setTitle(option + " Rainfall Analysis");
-
             }
         }
     }
-
-
 }
-
-
-

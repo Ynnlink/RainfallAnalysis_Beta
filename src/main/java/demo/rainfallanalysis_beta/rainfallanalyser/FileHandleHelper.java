@@ -2,16 +2,14 @@ package demo.rainfallanalysis_beta.rainfallanalyser;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
-import java.util.List;
 
 public class FileHandleHelper {
 
-    //original file
+    //original files
     private static Hashtable<String, File> files = new Hashtable<>();
 
-    //calculated file
+    //calculated data
     private static Hashtable<String, ArrayList<String[]>> calculatedRecords = new Hashtable<>();
 
 
@@ -24,10 +22,6 @@ public class FileHandleHelper {
             files.put(newFile.getName(),newFile);
             return true;
         }
-    }
-
-    public static int getSize() {
-        return files.size();
     }
 
     public static File getNewFile(String key) {
@@ -49,15 +43,4 @@ public class FileHandleHelper {
     public static ArrayList<String[]> getRecords(String fileName) {
         return calculatedRecords.get(fileName);
     }
-
-    public static void test() {
-        //data structure
-        //String[] test = new String[0];
-        //records.add(test);
-
-    }
-
-
-
-
 }
