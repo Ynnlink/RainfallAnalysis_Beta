@@ -11,7 +11,7 @@ public class RainfallVisualiser extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(RainfallVisualiser.class.getResource("visualiser-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1500, 500);
+        Scene scene = new Scene(fxmlLoader.load(), 1500, 700);
         stage.setTitle("Rainfall Visualiser");
         stage.setScene(scene);
         stage.show();

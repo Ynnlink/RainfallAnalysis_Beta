@@ -10,15 +10,16 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbox0" alignment="CENTER" prefHeight="674.0" prefWidth="927.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="demo.rainfallanalysis_beta.VisualiserController">
+<VBox fx:id="vbox0" alignment="CENTER" prefHeight="674.0" prefWidth="954.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="demo.rainfallanalysis_beta.VisualiserController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
    <ToolBar prefHeight="40.0" prefWidth="200.0">
      <items>
          <Button onAction="#onUploadButtonClick" text="Upload rainfall CSV file" />
-         <ChoiceBox fx:id="fileList" onAction="#onSelect" prefWidth="150.0" />
-         <Button onAction="#onCalculateButtonClick" mnemonicParsing="false" text="Calculate" />
+         <Label text="Selected CSV file:" />
+         <ChoiceBox fx:id="fileList" onAction="#onSelect" prefHeight="26.0" prefWidth="207.0" />
+         <Button mnemonicParsing="false" onAction="#onCalculateButtonClick" text="Analyse" />
      </items>
    </ToolBar>
 

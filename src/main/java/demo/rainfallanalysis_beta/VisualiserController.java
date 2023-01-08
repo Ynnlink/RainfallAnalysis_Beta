@@ -51,7 +51,7 @@ public class VisualiserController {
 
             //run alert window
             Scene sc = new Scene(v,300,50);
-            s.setTitle("Application Failure");
+            s.setTitle("Error");
             s.setScene(sc);
             s.show();
         }
@@ -105,7 +105,7 @@ public class VisualiserController {
 
         } else {
             if (fileList.getSelectionModel().getSelectedItem().equals(option) && flag == 0) {
-                showErrorMessage("Already calculated!");
+                showErrorMessage("This file has been analysed!");
 
             } else {
                 //flag the current file
@@ -118,6 +118,9 @@ public class VisualiserController {
                         case "unsupported" -> showErrorMessage("Unsupported file format!");
                         case "fail" -> showErrorMessage("Unknown error!");
                         default -> {
+                            //reset current barchart
+                            barChart.getData().removeAll();
+
                             //collect data and draw bar chart
                             barChartXAxis.setLabel("Year");
                             barChartYAxis.setLabel("Units = mm");
