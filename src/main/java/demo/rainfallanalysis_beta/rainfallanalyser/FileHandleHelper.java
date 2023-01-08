@@ -12,7 +12,6 @@ public class FileHandleHelper {
     //calculated data
     private static Hashtable<String, ArrayList<String[]>> calculatedRecords = new Hashtable<>();
 
-
     public static Boolean saveNewFile(File newFile) {
         if (files.containsKey(newFile.getName())) {
             //file already exist
@@ -23,13 +22,10 @@ public class FileHandleHelper {
             return true;
         }
     }
-
     public static File getNewFile(String key) {
         return files.get(key);
     }
-
     public static Boolean saveRecords(String fileName,ArrayList<String[]> records) {
-
         if (calculatedRecords.containsKey(fileName)) {
             //already contains records
             return false;
@@ -39,7 +35,6 @@ public class FileHandleHelper {
             return true;
         }
     }
-
     public static ArrayList<String[]> getRecords(String fileName) {
         return calculatedRecords.get(fileName);
     }

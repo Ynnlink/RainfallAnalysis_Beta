@@ -197,7 +197,6 @@ public class RainfallAnalyser {
         return data;
     }
 
-
     //updated writeRecord function
     private static String[] writeRecord(double totalRainfall, double minRainfall, double maxRainfall, int currentMonth, int year) {
         //format all the data
