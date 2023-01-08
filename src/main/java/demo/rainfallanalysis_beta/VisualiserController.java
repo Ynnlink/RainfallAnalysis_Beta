@@ -1,14 +1,12 @@
 package demo.rainfallanalysis_beta;
 
 import demo.rainfallanalysis_beta.rainfallanalyser.FileHandleHelper;
+import demo.rainfallanalysis_beta.rainfallanalyser.RainfallAnalyser;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -26,6 +24,13 @@ public class VisualiserController {
 
     @FXML
     private BarChart barChart;
+
+    @FXML
+    private CategoryAxis barChartXAxis;
+
+    @FXML
+    private NumberAxis barChartYAxis;
+
 
     private String option;
 
@@ -107,6 +112,20 @@ public class VisualiserController {
             } else {
                 //flag the current file
                 flag = flag + 1;
+                try {
+                    //open csv file
+                    if (!RainfallAnalyser.analyseData(FileHandleHelper.getNewFile(option))) {
+                        showErrorMessage("File is corrupt!");
+                        return;
+                    } else {
+                        //collect data and draw bar chart
+                        //to do
+                        System.out.println("A correct file is open!");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
 
                 final String austria = "Austria";
                 final String brazil = "Brazil";
@@ -114,11 +133,8 @@ public class VisualiserController {
                 final String italy = "Italy";
                 final String usa = "USA";
 
-                final CategoryAxis xAxis = new CategoryAxis();
-                final NumberAxis yAxis = new NumberAxis();
-                xAxis.setLabel("Country");
-                yAxis.setLabel("Value");
-
+                barChartXAxis.setLabel("Country");
+                barChartYAxis.setLabel("Value");
 
                 XYChart.Series series1 = new XYChart.Series();
                 series1.setName("2003");
@@ -144,8 +160,10 @@ public class VisualiserController {
                 series3.getData().add(new XYChart.Data(italy, 17557.31));
                 series3.getData().add(new XYChart.Data(usa, 92633.68));
 
+
                 //replacing bar chart values
                 barChart.setData(FXCollections.observableArrayList(series1, series2, series3));
+                barChart.setTitle(option + " Rainfall Analysis");
 
             }
         }

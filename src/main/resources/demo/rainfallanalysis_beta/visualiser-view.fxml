@@ -24,10 +24,10 @@
 
    <BarChart fx:id="barChart" prefHeight="564.0" prefWidth="883.0" title="Rainfall Analysis">
      <xAxis>
-       <CategoryAxis side="BOTTOM" />
+       <CategoryAxis fx:id="barChartXAxis" side="BOTTOM" />
      </xAxis>
      <yAxis>
-       <NumberAxis side="LEFT" />
+       <NumberAxis fx:id="barChartYAxis" side="LEFT" />
      </yAxis>
    </BarChart>
 </VBox>

@@ -1,6 +1,13 @@
 package demo.rainfallanalysis_beta.rainfallanalyser;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
+import com.opencsv.exceptions.CsvValidationException;
 import demo.rainfallanalysis_beta.rainfallanalyser.textio.TextIO;
+
+import java.io.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class RainfallAnalyser {
     public static void main(String[] args) {
@@ -107,6 +114,29 @@ public class RainfallAnalyser {
         }
         return "success";
     }
+
+    //analyse dataset
+    public static Boolean analyseData(File file){
+
+        //open csv file
+        try (CSVReader reader = new CSVReader(new FileReader(file))) {
+            String[] lineInArray;
+            while ((lineInArray = reader.readNext()) != null) {
+                //analyse dataset and save records
+
+
+                System.out.println(Arrays.toString(lineInArray));
+            }
+        } catch (IOException | CsvValidationException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+        return true;
+    }
+
+
 
     private static void writeRecord(double totalRainfall, double minRainfall, double maxRainfall, int currentMonth, int year) {
         var newRecord = String.format("%d,%d,%1.2f,%1.2f,%1.2f%s", year, currentMonth,
